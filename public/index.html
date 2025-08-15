@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Project Burrow</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="login">
+        <h1>Welcome to Project Burrow</h1>
+        <!-- Small tag -->
+         <small>v0.0.1 - Experiment 0</small><br><br>
+        <input id="username" placeholder="Enter username" />
+        <button id="joinBtn">Join</button>
+    </div>
+    <canvas id="gameCanvas"></canvas>
+
+    <!-- Floating chat bar -->
+    <div id="chatBar">
+        <input id="chatInput" placeholder="Type a message..." />
+        <button id="sendBtn">Send</button>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="client.js"></script>
+</body>
+</html>
