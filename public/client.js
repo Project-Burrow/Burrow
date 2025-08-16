@@ -3,12 +3,12 @@ const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
 const barriers = [
-    { x: 630, y: 0, width: 520, height: 360 },
-    { x: 690, y: 0, width: 580, height: 100 },
-    { x: 640, y: 620, width: 500, height: 150 },
-    { x: 670, y: 760, width: 490, height: 140 },
-    { x: 450, y: 900, width: 750, height: 230 },
-    { x: 205, y: 170, width: 150, height: 150 },
+    { x: 630, y: 0, width: 520, height: 360 }, // Barrier 1, above bridge
+    { x: 690, y: 0, width: 580, height: 100 }, // Barrier 2, top right of barrier 1
+    { x: 640, y: 620, width: 500, height: 150 }, // Barrier 3, below bridge
+    { x: 670, y: 760, width: 490, height: 140 }, // Barrier 4, below barrier 3
+    { x: 450, y: 900, width: 750, height: 230 }, // Barrier 5, below 4 and has tree
+    { x: 180, y: 170, width: 150, height: 150 }, // Bush barrier 
 ];
 
 const otterHitbox = { offsetX: 80, offsetY: 150, width: 100, height: 80 };
