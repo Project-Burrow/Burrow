@@ -74,13 +74,28 @@ function sendChat() {
     setTimeout(() => { localPlayer.chat = ''; }, 5000);
 }
 
+// Inside your socket 'players' update, reset spinPlayed and state for localPlayer movement
 socket.on('players', data => {
     for (let id in data) {
-        if (players[id] && players[id].chat) data[id].chat = players[id].chat;
         if (!playerAnimations[id]) {
-            playerAnimations[id] = { idleFrame: 0, idleCounter: 0, runFrame: 0, runCounter: 0, lastMove: Date.now(), spinPlayed: false, sleepFrame: 0, sleepCounter: 0, state: 'idle' };
+            playerAnimations[id] = { 
+                idleFrame: 0, idleCounter: 0, runFrame: 0, runCounter: 0, 
+                lastMove: Date.now(), spinPlayed: false, sleepFrame: 0, sleepCounter: 0, state: 'idle' 
+            };
+        }
+
+        // Update animation based on movement
+        const anim = playerAnimations[id];
+
+        if (data[id].moving) {
+            anim.state = 'running';
+            anim.spinPlayed = false;
+            anim.sleepFrame = 0;
+            anim.sleepCounter = 0;
+            anim.lastMove = Date.now();  // <<< Reset lastMove whenever this player is moving
         }
     }
+
     players = data;
     if (players[socket.id]) {
         localPlayer = { ...localPlayer, ...players[socket.id] };
