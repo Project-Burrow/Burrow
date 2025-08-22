@@ -8,7 +8,7 @@ const barriers = [
     { x: 640, y: 620, width: 500, height: 150 }, // Barrier 3, below bridge
     { x: 670, y: 760, width: 490, height: 140 }, // Barrier 4, below barrier 3
     { x: 450, y: 900, width: 750, height: 230 }, // Barrier 5, below 4 and has tree
-    { x: 180, y: 170, width: 150, height: 150 }, // Bush barrier 
+    { x: 205, y: 170, width: 150, height: 150 }, // Bush barrier 
 ];
 
 const otterHitbox = { offsetX: 80, offsetY: 150, width: 100, height: 80 };
@@ -145,9 +145,9 @@ function update() {
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    ctx.strokeStyle = 'red';
-    ctx.lineWidth = 2;
-    for (const barrier of barriers) { ctx.strokeRect(barrier.x, barrier.y, barrier.width, barrier.height); }
+    // ctx.strokeStyle = 'red';
+    // ctx.lineWidth = 2;
+    // for (const barrier of barriers) { ctx.strokeRect(barrier.x, barrier.y, barrier.width, barrier.height); }
 
     for (let id in players) {
         const p = players[id];
