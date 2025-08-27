@@ -78,9 +78,9 @@ function sendChat() {
 socket.on('players', data => {
     for (let id in data) {
         if (!playerAnimations[id]) {
-            playerAnimations[id] = { 
-                idleFrame: 0, idleCounter: 0, runFrame: 0, runCounter: 0, 
-                lastMove: Date.now(), spinPlayed: false, sleepFrame: 0, sleepCounter: 0, state: 'idle' 
+            playerAnimations[id] = {
+                idleFrame: 0, idleCounter: 0, runFrame: 0, runCounter: 0,
+                lastMove: Date.now(), spinPlayed: false, sleepFrame: 0, sleepCounter: 0, state: 'idle'
             };
         }
 
@@ -179,15 +179,57 @@ function draw() {
         else { ctx.drawImage(img, p.x, p.y, 264, 264); }
         ctx.restore();
 
-        ctx.fillStyle = 'white'; ctx.font = 'bold 16px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'bottom'; ctx.fillText(p.username, p.x + 132, p.y + 70);
-
+        ctx.fillStyle = 'white'; ctx.font = 'bold 16px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'bottom'; ctx.fillText(p.username, p.x + 132, p.y + 250);
+        
         if (p.chat) {
-            const padding = 6; ctx.font = '14px sans-serif';
-            const textWidth = ctx.measureText(p.chat).width + padding * 2; const textHeight = 24;
-            const bubbleX = p.x + 132 - textWidth / 2; const bubbleY = p.y + 20;
-            ctx.fillStyle = 'rgba(255,255,255,0.9)'; ctx.fillRect(bubbleX, bubbleY, textWidth, textHeight);
-            ctx.strokeStyle = '#4a90e2'; ctx.lineWidth = 2; ctx.strokeRect(bubbleX, bubbleY, textWidth, textHeight);
-            ctx.fillStyle = 'black'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(p.chat, bubbleX + textWidth / 2, bubbleY + textHeight / 2);
+            const paddingX = 16;  // horizontal padding
+            const paddingY = 10;  // vertical padding
+            ctx.font = '16px sans-serif';
+
+            const textWidth = ctx.measureText(p.chat).width + paddingX * 2;
+            const textHeight = 24 + paddingY * 2;
+
+            const bubbleX = p.x + 132 - textWidth / 2;
+            const bubbleY = p.y + 20; // move bubble slightly upwards
+
+            // Draw rounded rectangle
+            const radius = 18;
+            ctx.fillStyle = 'rgba(255,255,255,0.95)';
+            ctx.strokeStyle = '#4a90e2';
+            ctx.lineWidth = 2;
+
+            ctx.beginPath();
+            ctx.moveTo(bubbleX + radius, bubbleY);
+            ctx.lineTo(bubbleX + textWidth - radius, bubbleY);
+            ctx.quadraticCurveTo(bubbleX + textWidth, bubbleY, bubbleX + textWidth, bubbleY + radius);
+            ctx.lineTo(bubbleX + textWidth, bubbleY + textHeight - radius);
+            ctx.quadraticCurveTo(bubbleX + textWidth, bubbleY + textHeight, bubbleX + textWidth - radius, bubbleY + textHeight);
+            ctx.lineTo(bubbleX + radius, bubbleY + textHeight);
+            ctx.quadraticCurveTo(bubbleX, bubbleY + textHeight, bubbleX, bubbleY + textHeight - radius);
+            ctx.lineTo(bubbleX, bubbleY + radius);
+            ctx.quadraticCurveTo(bubbleX, bubbleY, bubbleX + radius, bubbleY);
+            ctx.fill();
+            ctx.stroke();
+
+            // Draw bubble tail (underneath, straight down)
+            const tailWidth = 12;
+            const tailHeight = 8;
+            const tailX = bubbleX + textWidth / 2 - tailWidth / 2;
+            const tailY = bubbleY + textHeight;
+
+            ctx.beginPath();
+            ctx.moveTo(tailX, tailY);
+            ctx.lineTo(tailX + tailWidth, tailY);
+            ctx.lineTo(tailX + tailWidth / 2, tailY + tailHeight);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+
+            // Draw text
+            ctx.fillStyle = 'black';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(p.chat, bubbleX + textWidth / 2, bubbleY + textHeight / 2);
         }
     }
 }
