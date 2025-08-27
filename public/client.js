@@ -42,7 +42,7 @@ otterSleep[3].src = 'assets/otter_sleep_4.png';
 otterSleep[4].src = 'assets/otter_sleep_5.png';
 otterSleep[5].src = 'assets/otter_sleep_6.png';
 
-const speed = 3;
+const speed = 6;
 let localPlayer = { x: 100, y: 340, direction: 'right', moving: false, chat: '' };
 const playerAnimations = {};
 const idleTimeout = 10000;
