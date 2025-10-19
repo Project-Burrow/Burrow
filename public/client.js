@@ -42,6 +42,9 @@ otterSleep[3].src = 'assets/otter_sleep_4.png';
 otterSleep[4].src = 'assets/otter_sleep_5.png';
 otterSleep[5].src = 'assets/otter_sleep_6.png';
 
+const emoteImg = new Image();
+emoteImg.src = 'assets/emote.webp';
+
 const speed = 3;
 let localPlayer = { x: 100, y: 340, direction: 'right', moving: false, chat: '' };
 const playerAnimations = {};
@@ -145,6 +148,8 @@ function update() {
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+    // Show barriers by uncommenting
+
     // ctx.strokeStyle = 'red';
     // ctx.lineWidth = 2;
     // for (const barrier of barriers) { ctx.strokeRect(barrier.x, barrier.y, barrier.width, barrier.height); }
@@ -180,22 +185,30 @@ function draw() {
         ctx.restore();
 
         ctx.fillStyle = 'white'; ctx.font = 'bold 16px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'bottom'; ctx.fillText(p.username, p.x + 132, p.y + 250);
-        
+
         if (p.chat) {
             const paddingX = 16;  // horizontal padding
             const paddingY = 10;  // vertical padding
             ctx.font = '16px sans-serif';
 
-            const textWidth = ctx.measureText(p.chat).width + paddingX * 2;
-            const textHeight = 24 + paddingY * 2;
+            // Determine width/height for bubble
+            let textWidth, textHeight;
+            const isEmote = p.chat === '__EMOTE__';
+            if (isEmote) {
+                textWidth = 80 + paddingX * 2;   // emote width
+                textHeight = 80 + paddingY * 2;  // emote height
+            } else {
+                textWidth = ctx.measureText(p.chat).width + paddingX * 2;
+                textHeight = 24 + paddingY * 2;
+            }
 
             const bubbleX = p.x + 132 - textWidth / 2;
-            const bubbleY = p.y + 20; // move bubble slightly upwards
+            const bubbleY = isEmote ? p.y - 40 : p.y + 20; // higher for emotes
 
             // Draw rounded rectangle
             const radius = 18;
             ctx.fillStyle = 'rgba(255,255,255,0.95)';
-            ctx.strokeStyle = '#4a90e2';
+            // ctx.strokeStyle = '#4a90e2';
             ctx.lineWidth = 2;
 
             ctx.beginPath();
@@ -211,7 +224,7 @@ function draw() {
             ctx.fill();
             ctx.stroke();
 
-            // Draw bubble tail (underneath, straight down)
+            // Draw bubble tail
             const tailWidth = 12;
             const tailHeight = 8;
             const tailX = bubbleX + textWidth / 2 - tailWidth / 2;
@@ -225,11 +238,62 @@ function draw() {
             ctx.fill();
             ctx.stroke();
 
-            // Draw text
-            ctx.fillStyle = 'black';
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-            ctx.fillText(p.chat, bubbleX + textWidth / 2, bubbleY + textHeight / 2);
+            // Draw text or emote
+            if (isEmote) {
+                const imgWidth = 80;
+                const imgHeight = 80;
+                ctx.drawImage(
+                    emoteImg,
+                    bubbleX + (textWidth - imgWidth) / 2,
+                    bubbleY + (textHeight - imgHeight) / 2,
+                    imgWidth,
+                    imgHeight
+                );
+            } else {
+                ctx.fillStyle = 'black';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(p.chat, bubbleX + textWidth / 2, bubbleY + textHeight / 2);
+            }
         }
+
     }
+
+    // Halloween colouring layer
+    ctx.fillStyle = 'rgba(140, 82, 255, 0.16)'; // #8c52ff @ 16% opacity
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    const inventoryButton = document.getElementById("inventoryButton");
+    const inventoryPanel = document.getElementById("inventoryPanel");
+    const closeInventoryBtn = document.getElementById("closeInventoryBtn");
+
+    // Open inventory when button is clicked
+    inventoryButton.addEventListener("click", () => {
+        inventoryPanel.classList.add("show");
+    });
+
+    // Close inventory when close button is clicked
+    closeInventoryBtn.addEventListener("click", () => {
+        inventoryPanel.classList.remove("show");
+    });
+
+    // Optional: Close inventory when pressing "Escape"
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+            inventoryPanel.classList.remove("show");
+        }
+    });
+});
+
+// Emote button functionality
+const emoteBtn = document.getElementById('emoteBtn');
+emoteBtn.addEventListener('click', () => {
+    // Send a special tag instead of a URL
+    const emoteTag = '__EMOTE__';
+    localPlayer.chat = emoteTag;
+    socket.emit('chat', emoteTag);
+
+    setTimeout(() => { localPlayer.chat = ''; }, 5000);
+});

@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>Project Burrow</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="halloween.css">
     <style>
         /* Popup backdrop */
         #alertBackdrop {
@@ -88,10 +89,10 @@
 
 <body>
     <div id="login">
-        <h1>Welcome to Project Burrow</h1>
+        <h1>🎃 Welcome to Project Burrow 🎃</h1>
         <!-- Small tag -->
-        <small>v0.3.7 - Experiment 1</small><br>
-        <small>Private experimental test | August 22nd - August 31st </small><br><br>
+        <small>v0.4.2 - Experiment 2</small><br>
+        <small>Private experimental test | SPOOKY EDITION </small><br><br>
         <input id="username" placeholder="Enter username" />
         <button id="joinBtn">Join</button>
     </div>
@@ -100,12 +101,28 @@
     <!-- Floating chat bar -->
     <div id="chatBar">
         <input id="chatInput" placeholder="Type a message..." />
+        <button id="emoteBtn">😊</button>
         <button id="sendBtn">Send</button>
     </div>
 
+    <!-- Emote panel -->
+    <div id="emotePanel">
+        <img src="https://media.discordapp.net/stickers/1407756708247375933.webp?size=240&quality=lossless"
+            alt="Sticker">
+    </div>
+
+    <!-- Inventory -->
+    <!-- <div id="inventoryButton">Inventory</div>
+    <div id="inventoryPanel">
+        <h2>Inventory</h2>
+        <ul id="inventoryList">
+            <li>experimental_item_1</li>
+        </ul>
+        <button id="closeInventoryBtn">Close</button>
+    </div> -->
 
     <!-- Alert Popup -->
-    <div id="alertBackdrop">
+    <!-- <div id="alertBackdrop">
         <div id="alertPopup">
             <h2>⚠ Project Burrow Notice</h2>
             <p>
@@ -119,7 +136,7 @@
             <br>
             <button id="closeAlertBtn">Close</button>
         </div>
-    </div>
+    </div> -->
 
     <script src="/socket.io/socket.io.js"></script>
     <script src="client.js"></script>

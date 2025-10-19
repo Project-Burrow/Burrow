@@ -1,0 +1,173 @@
+/* 🎃 Halloween Login Screen */
+#login {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(30, 0, 40, 0.95);
+  padding: 40px 50px;
+  border-radius: 20px;
+  box-shadow: 0 0 40px rgba(255, 100, 0, 0.6), 0 0 10px rgba(255, 165, 0, 0.3);
+  text-align: center;
+  color: #ffb347;
+  font-family: "Creepster", cursive, sans-serif;
+  border: 2px solid #ff7518;
+}
+
+#login input {
+  padding: 10px 15px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: 2px solid #ff7518;
+  margin-bottom: 15px;
+  width: 200px;
+  background: rgba(40, 0, 60, 0.8);
+  color: #fff5cc;
+  text-shadow: 0 0 4px #ff7518;
+}
+
+#login input::placeholder {
+  color: #ffb347;
+  opacity: 0.7;
+}
+
+#login button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 12px;
+  border: none;
+  background-color: #ff7518;
+  color: black;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(255, 165, 0, 0.6);
+}
+
+#login button:hover {
+  background-color: #ffb347;
+  transform: scale(1.1) rotate(-1deg);
+  box-shadow: 0 0 20px rgba(255, 120, 0, 0.9);
+}
+
+/* 👻 Floating Halloween Chat Bar */
+#chatBar {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  background: rgba(30, 0, 40, 0.95);
+  padding: 8px 12px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(255, 120, 0, 0.4);
+  width: 400px;
+  max-width: 80%;
+  border: 2px solid #ff7518;
+}
+
+#chatBar input {
+  flex: 1;
+  border: 2px solid #ff7518;
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 16px;
+  outline: none;
+  background-color: rgba(40, 0, 60, 0.8);
+  color: #fff5cc;
+}
+
+#chatBar input::placeholder {
+  color: #ffb347;
+  opacity: 0.7;
+}
+
+#chatBar button {
+  margin-left: 8px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  background-color: #ff7518;
+  color: black;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(255, 120, 0, 0.6);
+}
+
+#chatBar button:hover {
+  background-color: #ffb347;
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255, 120, 0, 0.8);
+}
+
+/* Optional: Subtle background animation */
+body {
+  background: radial-gradient(circle at top, #2b003a 0%, #000000 100%);
+  overflow: hidden;
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('https://www.transparenttextures.com/patterns/dark-mosaic.png');
+  opacity: 0.1;
+}
+
+/* Optional spooky glow animation */
+@keyframes flicker {
+  0%, 18%, 22%, 25%, 53%, 57%, 100% {
+    text-shadow: 0 0 10px #ff7518, 0 0 20px #ffb347, 0 0 30px #ff7518;
+  }
+  20%, 24%, 55% {
+    text-shadow: none;
+  }
+}
+
+#login h1, #chatBar label {
+  animation: flicker 2s infinite alternate;
+}
+
+/* 💬 Halloween Chat Bubble */
+.chat-bubble {
+  font-size: 16px;
+  background: rgba(40, 0, 60, 0.9);
+  padding: 10px 16px;
+  border-radius: 18px;
+  box-shadow: 0 0 10px rgba(255, 120, 0, 0.4);
+  display: inline-block;
+  max-width: 70%;
+  position: relative;
+  color: #fff5cc;
+  border: 2px solid #ff7518;
+  text-shadow: 0 0 4px #ff7518;
+  animation: flickerBubble 2.5s infinite alternate;
+}
+
+/* 🦇 Bubble tail (pointing left) */
+.chat-bubble::after {
+  content: "";
+  position: absolute;
+  left: -10px; /* move the tail outside */
+  top: 12px;
+  width: 0;
+  height: 0;
+  border: 8px solid transparent;
+  border-right-color: rgba(40, 0, 60, 0.9);
+  filter: drop-shadow(0 0 6px rgba(255, 120, 0, 0.4));
+}
+
+/* ✨ Flickering effect (subtle, spooky glow) */
+@keyframes flickerBubble {
+  0%, 18%, 22%, 25%, 53%, 57%, 100% {
+    box-shadow: 0 0 8px rgba(255, 120, 0, 0.6), 0 0 16px rgba(255, 100, 0, 0.4);
+    text-shadow: 0 0 4px #ff7518, 0 0 8px #ffb347;
+  }
+  20%, 24%, 55% {
+    box-shadow: none;
+    text-shadow: none;
+  }
+}
