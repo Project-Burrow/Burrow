@@ -45,6 +45,9 @@ otterSleep[5].src = 'assets/otter_sleep_6.png';
 const emoteImg = new Image();
 emoteImg.src = 'assets/emote.webp';
 
+const emoteImg2 = new Image();
+emoteImg2.src = 'assets/emote2.png';
+
 const speed = 3;
 let localPlayer = { x: 100, y: 340, direction: 'right', moving: false, chat: '' };
 const playerAnimations = {};
@@ -193,7 +196,7 @@ function draw() {
 
             // Determine width/height for bubble
             let textWidth, textHeight;
-            const isEmote = p.chat === '__EMOTE__';
+            const isEmote = p.chat === '__EMOTE__' || p.chat === '__EMOTE2__';
             if (isEmote) {
                 textWidth = 80 + paddingX * 2;   // emote width
                 textHeight = 80 + paddingY * 2;  // emote height
@@ -242,14 +245,19 @@ function draw() {
             if (isEmote) {
                 const imgWidth = 80;
                 const imgHeight = 80;
-                ctx.drawImage(
-                    emoteImg,
-                    bubbleX + (textWidth - imgWidth) / 2,
-                    bubbleY + (textHeight - imgHeight) / 2,
-                    imgWidth,
-                    imgHeight
-                );
-            } else {
+                const imgToDraw = p.chat === '__EMOTE2__' ? emoteImg2 : emoteImg;
+
+                if (imgToDraw.complete && imgToDraw.naturalWidth > 0) {
+                    ctx.drawImage(
+                        imgToDraw,
+                        bubbleX + (textWidth - imgWidth) / 2,
+                        bubbleY + (textHeight - imgHeight) / 2,
+                        imgWidth,
+                        imgHeight
+                    );
+                }
+            }
+            else {
                 ctx.fillStyle = 'black';
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
@@ -264,28 +272,28 @@ function draw() {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    const inventoryButton = document.getElementById("inventoryButton");
-    const inventoryPanel = document.getElementById("inventoryPanel");
-    const closeInventoryBtn = document.getElementById("closeInventoryBtn");
+// document.addEventListener("DOMContentLoaded", () => {
+//     const inventoryButton = document.getElementById("inventoryButton");
+//     const inventoryPanel = document.getElementById("inventoryPanel");
+//     const closeInventoryBtn = document.getElementById("closeInventoryBtn");
 
-    // Open inventory when button is clicked
-    inventoryButton.addEventListener("click", () => {
-        inventoryPanel.classList.add("show");
-    });
+//     // Open inventory when button is clicked
+//     inventoryButton.addEventListener("click", () => {
+//         inventoryPanel.classList.add("show");
+//     });
 
-    // Close inventory when close button is clicked
-    closeInventoryBtn.addEventListener("click", () => {
-        inventoryPanel.classList.remove("show");
-    });
+//     // Close inventory when close button is clicked
+//     closeInventoryBtn.addEventListener("click", () => {
+//         inventoryPanel.classList.remove("show");
+//     });
 
-    // Optional: Close inventory when pressing "Escape"
-    document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") {
-            inventoryPanel.classList.remove("show");
-        }
-    });
-});
+//     // Optional: Close inventory when pressing "Escape"
+//     document.addEventListener("keydown", (e) => {
+//         if (e.key === "Escape") {
+//             inventoryPanel.classList.remove("show");
+//         }
+//     });
+// });
 
 // Emote button functionality
 const emoteBtn = document.getElementById('emoteBtn');
@@ -294,6 +302,17 @@ emoteBtn.addEventListener('click', () => {
     const emoteTag = '__EMOTE__';
     localPlayer.chat = emoteTag;
     socket.emit('chat', emoteTag);
+
+    setTimeout(() => { localPlayer.chat = ''; }, 5000);
+});
+
+// Halloween
+const emoteBtn2 = document.getElementById('emoteBtn2');
+emoteBtn2.addEventListener('click', () => {
+    // Send a special tag instead of a URL
+    const emoteTag2 = '__EMOTE2__';
+    localPlayer.chat = emoteTag2;
+    socket.emit('chat', emoteTag2);
 
     setTimeout(() => { localPlayer.chat = ''; }, 5000);
 });
