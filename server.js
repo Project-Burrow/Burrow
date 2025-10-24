@@ -9,6 +9,9 @@ app.use(express.static('public'));
 
 let players = {};
 
+// 🎃 Trick-or-Treat Minigame
+const candyScores = {};
+
 io.on('connection', (socket) => {
   console.log('New player connected:', socket.id);
 
@@ -22,7 +25,12 @@ io.on('connection', (socket) => {
       moving: false,
       chat: ''
     };
+
+    // 🎃 Initialize candy score if not present
+    if (!candyScores[username]) candyScores[username] = 0;
+
     io.emit('players', players);
+    io.emit('leaderboard', candyScores); // send leaderboard to everyone
   });
 
   socket.on('move', (data) => {
@@ -53,10 +61,27 @@ io.on('connection', (socket) => {
     }
   });
 
+  // 🎃 Trick-or-Treat Minigame result handler
+  socket.on('trickResult', ({ username, candy }) => {
+    if (!candyScores[username]) candyScores[username] = 0;
+
+    // Prevent negative scores
+    candyScores[username] = Math.max(0, candyScores[username] + candy);
+
+    console.log(`🍬 ${username} ${candy > 0 ? `got ${candy} candy!` : 'was tricked!'} Total: ${candyScores[username]}`);
+
+    // Broadcast updated leaderboard to all clients
+    io.emit('leaderboard', candyScores);
+  });
+
   socket.on('disconnect', () => {
     console.log(`Player disconnected: ${socket.id}`);
+
+    // Optionally keep candy score for leaderboard persistence
     delete players[socket.id];
+
     io.emit('players', players);
+    io.emit('leaderboard', candyScores);
   });
 });
 
