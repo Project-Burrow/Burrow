@@ -371,12 +371,19 @@ function draw() {
         leaderboard = data;
     });
 
-    // Draw leaderboard overlay
     function drawLeaderboard() {
         const boxWidth = 230;
-        const boxHeight = 180;
         const boxX = canvas.width - boxWidth - 20; // 20px from right edge
         const boxY = 20;
+
+        const sorted = Object.entries(leaderboard)
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, Math.min(Object.keys(leaderboard).length, 10)); // top 10
+
+        const rowHeight = 25;
+        const titleHeight = 45;
+        const bottomPadding = 20;
+        const boxHeight = titleHeight + sorted.length * rowHeight + bottomPadding;
 
         ctx.save();
         ctx.fillStyle = 'rgba(0, 0, 0, 0.55)';
@@ -388,21 +395,15 @@ function draw() {
         ctx.textBaseline = 'top';
         ctx.fillText('🍬 Candy Leaderboard', boxX + boxWidth / 2, boxY + 10);
 
-        const sorted = Object.entries(leaderboard)
-            .sort((a, b) => b[1] - a[1])
-            .slice(0, 5);
-
         ctx.font = '16px sans-serif';
         ctx.textAlign = 'left';
 
-        const startY = boxY + 45;
-        const textPadding = 15;
-        const textX = boxX + textPadding;
-        let y = startY;
+        const textX = boxX + 15;
+        let y = boxY + titleHeight;
 
         for (const [user, score] of sorted) {
             ctx.fillText(`${user}: ${score}`, textX, y);
-            y += 25;
+            y += rowHeight;
         }
 
         ctx.restore();
