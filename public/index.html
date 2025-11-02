@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <title>Project Burrow</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="halloween.css">
+    <link rel="stylesheet" href="login.css">
+    <!-- <link rel="stylesheet" href="halloween.css"> -->
     <style>
         /* Popup backdrop */
         #alertBackdrop {
@@ -89,10 +90,10 @@
 
 <body>
     <div id="login">
-        <h1>🎃 Welcome to Project Burrow 🎃</h1>
+        <h1>Welcome to Project Burrow</h1>
         <!-- Small tag -->
-        <small>v0.4.9 - Experiment 2</small><br>
-        <small>Private experimental test | SPOOKY EDITION </small><br><br>
+        <small>v0.5.0 - Experiment 3</small><br>
+        <small>Private experimental test | ?? </small><br><br>
         <input id="username" placeholder="Enter username" />
         <button id="joinBtn">Join</button>
     </div>
@@ -102,7 +103,7 @@
     <div id="chatBar">
         <input id="chatInput" placeholder="Type a message..." />
         <button id="emoteBtn">😊</button>
-        <button id="emoteBtn2">🎃</button>
+        <!-- <button id="emoteBtn2">🎃</button> -->
         <button id="sendBtn">Send</button>
     </div>
 
@@ -113,10 +114,10 @@
     </div>
 
     <!-- Mute music -->
-    <div id="muteButton" style="position: absolute; top: 20px; left: 20px; z-index: 1000;">
+    <!-- <div id="muteButton" style="position: absolute; top: 20px; left: 20px; z-index: 1000;">
         <button id="muteBtn">🔊</button>
         <button id="unmuteBtn" style="display: none;">🔇</button>
-    </div>
+    </div> -->
 
 
     <!-- Inventory -->
@@ -147,7 +148,7 @@
     </div> -->
 
     <script src="/socket.io/socket.io.js"></script>
-    <script src="client-halloween.js"></script>
+    <script src="client.js"></script>
     <!-- <script>
         // Show popup on load
         window.addEventListener("load", () => {

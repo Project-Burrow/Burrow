@@ -266,10 +266,6 @@ function draw() {
         }
 
     }
-
-    // Halloween colouring layer
-    ctx.fillStyle = 'rgba(140, 82, 255, 0.16)'; // #8c52ff @ 16% opacity
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
 // document.addEventListener("DOMContentLoaded", () => {
@@ -307,12 +303,12 @@ emoteBtn.addEventListener('click', () => {
 });
 
 // Halloween
-const emoteBtn2 = document.getElementById('emoteBtn2');
-emoteBtn2.addEventListener('click', () => {
-    // Send a special tag instead of a URL
-    const emoteTag2 = '__EMOTE2__';
-    localPlayer.chat = emoteTag2;
-    socket.emit('chat', emoteTag2);
+// const emoteBtn2 = document.getElementById('emoteBtn2');
+// emoteBtn2.addEventListener('click', () => {
+//     // Send a special tag instead of a URL
+//     const emoteTag2 = '__EMOTE2__';
+//     localPlayer.chat = emoteTag2;
+//     socket.emit('chat', emoteTag2);
 
-    setTimeout(() => { localPlayer.chat = ''; }, 5000);
-});
+//     setTimeout(() => { localPlayer.chat = ''; }, 5000);
+// });
