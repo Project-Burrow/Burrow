@@ -81,7 +81,7 @@ io.on('connection', (socket) => {
     delete players[socket.id];
 
     io.emit('players', players);
-    io.emit('leaderboard', candyScores);
+    // io.emit('leaderboard', candyScores);
   });
 });
 
