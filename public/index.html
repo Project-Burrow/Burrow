@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="login.css">
     <!-- <link rel="stylesheet" href="halloween.css"> -->
+    <link rel="stylesheet" href="winter.css">
+    <!-- <link rel="stylesheet" href="christmas.css"> -->
     <style>
         /* Popup backdrop */
         #alertBackdrop {
@@ -90,10 +92,10 @@
 
 <body>
     <div id="login">
-        <h1>Welcome to Project Burrow</h1>
+        <h1>❄️ Welcome to Project Burrow ❄️</h1>
         <!-- Small tag -->
         <small>v0.5.0 - Experiment 3</small><br>
-        <small>Private experimental test | ?? </small><br><br>
+        <small>Private experimental test | Dec 4th 2025 - Jan 4th 2026</small><br><br>
         <input id="username" placeholder="Enter username" />
         <button id="joinBtn">Join</button>
     </div>
@@ -104,6 +106,7 @@
         <input id="chatInput" placeholder="Type a message..." />
         <button id="emoteBtn">😊</button>
         <!-- <button id="emoteBtn2">🎃</button> -->
+        <button id="emoteBtn2">🎄</button>
         <button id="sendBtn">Send</button>
     </div>
 
@@ -114,10 +117,10 @@
     </div>
 
     <!-- Mute music -->
-    <!-- <div id="muteButton" style="position: absolute; top: 20px; left: 20px; z-index: 1000;">
+    <div id="muteButton" style="position: absolute; top: 20px; left: 20px; z-index: 1000;">
         <button id="muteBtn">🔊</button>
         <button id="unmuteBtn" style="display: none;">🔇</button>
-    </div> -->
+    </div>
 
 
     <!-- Inventory -->
@@ -148,7 +151,7 @@
     </div> -->
 
     <script src="/socket.io/socket.io.js"></script>
-    <script src="client.js"></script>
+    <script src="client-winter-christmas.js"></script>
     <!-- <script>
         // Show popup on load
         window.addEventListener("load", () => {

@@ -13,8 +13,7 @@ body {
   /* background-image: url("assets/map1_halloween.png"); */
 
   background:
-    /* linear-gradient(rgba(140, 82, 255, 0.16), rgba(140, 82, 255, 0.16)), 16% transparent purple */
-    url("assets/map1.jpg");
+    url("assets/map1_winter.png");
 
   background-size: cover;
   background-position: center;

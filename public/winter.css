@@ -1,0 +1,190 @@
+/* ❄️ Winter Login Screen */
+#login {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(10, 20, 50, 0.95); /* deep icy blue */
+  padding: 40px 50px;
+  border-radius: 20px;
+  box-shadow: 0 0 40px rgba(173, 216, 230, 0.6), 0 0 10px rgba(135, 206, 250, 0.3);
+  text-align: center;
+  color: #e0f7ff; /* icy text */
+  font-family: "Creepster", cursive, sans-serif; /* keep playful font or change to "Montserrat" for modern */
+  border: 2px solid #a0d8ef; /* frosty border */
+}
+
+#login input {
+  padding: 10px 15px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: 2px solid #a0d8ef;
+  margin-bottom: 15px;
+  width: 200px;
+  background: rgba(20, 30, 70, 0.8);
+  color: #f0f9ff;
+  text-shadow: 0 0 4px #a0d8ef;
+}
+
+#login input::placeholder {
+  color: #c0e8ff;
+  opacity: 0.7;
+}
+
+#login button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 12px;
+  border: none;
+  background-color: #88ccee; /* icy blue button */
+  color: black;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(173, 216, 230, 0.6);
+}
+
+#login button:hover {
+  background-color: #a0e0ff;
+  transform: scale(1.1) rotate(-1deg);
+  box-shadow: 0 0 20px rgba(173, 216, 230, 0.9);
+}
+
+/* ❄️ Floating Winter Chat Bar */
+#chatBar {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  background: rgba(10, 20, 50, 0.95);
+  padding: 8px 12px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(173, 216, 230, 0.4);
+  width: 400px;
+  max-width: 80%;
+  border: 2px solid #a0d8ef;
+}
+
+#chatBar input {
+  flex: 1;
+  border: 2px solid #a0d8ef;
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 16px;
+  outline: none;
+  background-color: rgba(20, 30, 70, 0.8);
+  color: #f0f9ff;
+}
+
+#chatBar input::placeholder {
+  color: #c0e8ff;
+  opacity: 0.7;
+}
+
+#chatBar button {
+  margin-left: 8px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  background-color: #88ccee;
+  color: black;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(173, 216, 230, 0.6);
+}
+
+#chatBar button:hover {
+  background-color: #a0e0ff;
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(173, 216, 230, 0.8);
+}
+
+/* Optional: Snowy background animation */
+body {
+  background: radial-gradient(circle at top, #1a2a4a 0%, #000d1a 100%);
+  overflow: hidden;
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('https://www.transparenttextures.com/patterns/frost.png'); /* subtle frost texture */
+  opacity: 0.1;
+}
+
+/* ❄️ Frosty glow animation */
+@keyframes glow {
+  0%, 50%, 100% {
+    text-shadow: 0 0 10px #88ccee, 0 0 20px #a0e0ff;
+  }
+  25%, 75% {
+    text-shadow: 0 0 5px #a0d8ef;
+  }
+}
+
+#login h1, #chatBar label {
+  animation: glow 2s infinite alternate;
+}
+
+/* ❄️ Winter Chat Bubble */
+.chat-bubble {
+  font-size: 16px;
+  background: rgba(20, 30, 70, 0.9);
+  padding: 10px 16px;
+  border-radius: 18px;
+  box-shadow: 0 0 10px rgba(173, 216, 230, 0.4);
+  display: inline-block;
+  max-width: 70%;
+  position: relative;
+  color: #f0f9ff;
+  border: 2px solid #a0d8ef;
+  text-shadow: 0 0 4px #a0d8ef;
+  animation: glowBubble 2.5s infinite alternate;
+}
+
+.chat-bubble::after {
+  content: "";
+  position: absolute;
+  left: -10px;
+  top: 12px;
+  width: 0;
+  height: 0;
+  border: 8px solid transparent;
+  border-right-color: rgba(20, 30, 70, 0.9);
+  filter: drop-shadow(0 0 6px rgba(173, 216, 230, 0.4));
+}
+
+@keyframes glowBubble {
+  0%, 50%, 100% {
+    box-shadow: 0 0 8px rgba(173, 216, 230, 0.6), 0 0 16px rgba(135, 206, 250, 0.4);
+    text-shadow: 0 0 4px #a0d8ef, 0 0 8px #c0e8ff;
+  }
+  25%, 75% {
+    box-shadow: none;
+    text-shadow: none;
+  }
+}
+
+#muteButton button {
+  background: #88ccee;
+  color: #000;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 16px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  margin: 0 4px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+  transition: all 0.3s ease;
+}
+
+#muteButton button:hover {
+  background: #a0e0ff;
+  transform: scale(1.05);
+}

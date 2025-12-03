@@ -1,0 +1,193 @@
+/* 🎄 Christmas Login Screen */
+#login {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(20, 30, 50, 0.95); /* deep night sky base */
+  padding: 40px 50px;
+  border-radius: 20px;
+  box-shadow: 0 0 40px rgba(255, 215, 0, 0.6), 0 0 10px rgba(255, 0, 0, 0.3);
+  text-align: center;
+  color: #fff8e7; /* soft warm text */
+  font-family: "Creepster", cursive, sans-serif;
+  border: 2px solid #ff0000; /* festive red border */
+}
+
+#login input {
+  padding: 10px 15px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: 2px solid #00a000; /* Christmas green border */
+  margin-bottom: 15px;
+  width: 200px;
+  background: rgba(0, 40, 20, 0.8);
+  color: #fff8e7;
+  text-shadow: 0 0 4px #ffd700; /* gold glow */
+}
+
+#login input::placeholder {
+  color: #ffd700;
+  opacity: 0.7;
+}
+
+#login button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 12px;
+  border: none;
+  background-color: #ff0000; /* festive red button */
+  color: #fff8e7;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.6); /* golden glow */
+}
+
+#login button:hover {
+  background-color: #ffd700; /* gold on hover */
+  color: #000;
+  transform: scale(1.1) rotate(-1deg);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.9);
+}
+
+/* 🎄 Floating Christmas Chat Bar */
+#chatBar {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  background: rgba(20, 30, 50, 0.95);
+  padding: 8px 12px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+  width: 400px;
+  max-width: 80%;
+  border: 2px solid #ff0000;
+}
+
+#chatBar input {
+  flex: 1;
+  border: 2px solid #00a000;
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 16px;
+  outline: none;
+  background-color: rgba(0, 40, 20, 0.8);
+  color: #fff8e7;
+}
+
+#chatBar input::placeholder {
+  color: #ffd700;
+  opacity: 0.7;
+}
+
+#chatBar button {
+  margin-left: 8px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  background-color: #ff0000;
+  color: #fff8e7;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+}
+
+#chatBar button:hover {
+  background-color: #ffd700;
+  color: #000;
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+}
+
+/* 🎄 Christmas Background */
+body {
+  background: radial-gradient(circle at top, #001a33 0%, #000d1a 100%); /* night sky */
+  overflow: hidden;
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('https://www.transparenttextures.com/patterns/snow.png'); /* subtle snow */
+  opacity: 0.15;
+}
+
+/* 🎄 Festive glow animation */
+@keyframes glow {
+  0%, 50%, 100% {
+    text-shadow: 0 0 10px #ff0000, 0 0 20px #ffd700;
+  }
+  25%, 75% {
+    text-shadow: 0 0 5px #00a000;
+  }
+}
+
+#login h1, #chatBar label {
+  animation: glow 2s infinite alternate;
+}
+
+/* 🎄 Christmas Chat Bubble */
+.chat-bubble {
+  font-size: 16px;
+  background: rgba(0, 40, 20, 0.9);
+  padding: 10px 16px;
+  border-radius: 18px;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+  display: inline-block;
+  max-width: 70%;
+  position: relative;
+  color: #fff8e7;
+  border: 2px solid #ff0000;
+  text-shadow: 0 0 4px #ffd700;
+  animation: glowBubble 2.5s infinite alternate;
+}
+
+.chat-bubble::after {
+  content: "";
+  position: absolute;
+  left: -10px;
+  top: 12px;
+  width: 0;
+  height: 0;
+  border: 8px solid transparent;
+  border-right-color: rgba(0, 40, 20, 0.9);
+  filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.4));
+}
+
+@keyframes glowBubble {
+  0%, 50%, 100% {
+    box-shadow: 0 0 8px rgba(255, 215, 0, 0.6), 0 0 16px rgba(255, 0, 0, 0.4);
+    text-shadow: 0 0 4px #ffd700, 0 0 8px #ff0000;
+  }
+  25%, 75% {
+    box-shadow: none;
+    text-shadow: none;
+  }
+}
+
+#muteButton button {
+  background: #ff0000;
+  color: #fff8e7;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 16px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  margin: 0 4px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+  transition: all 0.3s ease;
+}
+
+#muteButton button:hover {
+  background: #ffd700;
+  color: #000;
+  transform: scale(1.05);
+}

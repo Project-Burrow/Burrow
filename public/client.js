@@ -301,14 +301,3 @@ emoteBtn.addEventListener('click', () => {
 
     setTimeout(() => { localPlayer.chat = ''; }, 5000);
 });
-
-// Halloween
-// const emoteBtn2 = document.getElementById('emoteBtn2');
-// emoteBtn2.addEventListener('click', () => {
-//     // Send a special tag instead of a URL
-//     const emoteTag2 = '__EMOTE2__';
-//     localPlayer.chat = emoteTag2;
-//     socket.emit('chat', emoteTag2);
-
-//     setTimeout(() => { localPlayer.chat = ''; }, 5000);
-// });
