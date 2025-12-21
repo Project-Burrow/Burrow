@@ -3,12 +3,27 @@ const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
 const barriers = [
-    { x: 630, y: 0, width: 520, height: 360 }, // Barrier 1, above bridge
+    { x: 650, y: 0, width: 520, height: 360 }, // Barrier 1, above bridge
     { x: 690, y: 0, width: 580, height: 100 }, // Barrier 2, top right of barrier 1
     { x: 640, y: 620, width: 500, height: 150 }, // Barrier 3, below bridge
     { x: 670, y: 760, width: 490, height: 140 }, // Barrier 4, below barrier 3
-    { x: 450, y: 900, width: 750, height: 230 }, // Barrier 5, below 4 and has tree
-    { x: 205, y: 170, width: 150, height: 150 }, // Bush barrier 
+    { x: 470, y: 910, width: 780, height: 180 }, // Barrier 5, below 4 and has tree
+    { x: 230, y: 170, width: 150, height: 150 }, // Bush barrier 
+
+    // Christmas
+    { x: 450, y: 620, width: 120, height: 150 }, // Snowman
+    { x: 1170, y: 690, width: 110, height: 130 }, // Present right side
+    // Christmas Tree
+    { x: 1655, y: 530, width: 160, height: 180 }, // Bottompart
+    { x: 1695, y: 360, width: 80, height: 140 }, // Top part
+
+
+    // Border around the canvas to prevent people from getting off screen
+    { x: -100, y: -100, width: 1920 + 200, height: 100 }, // Top
+    { x: -100, y: 1080, width: 1920 + 200, height: 100 }, // Bottom
+    { x: -100, y: 0, width: 100, height: 1080 }, // Left
+    { x: 1920, y: 0, width: 100, height: 1080 }, // Right
+
 ];
 
 const otterHitbox = { offsetX: 80, offsetY: 150, width: 100, height: 80 };
@@ -50,7 +65,7 @@ const emoteImg2 = new Image();
 emoteImg2.src = 'assets/emote3.png';
 
 // 🎵 Background Music
-const bgMusic = new Audio('/assets/winter.mp3');
+const bgMusic = new Audio('/assets/christmas.mp3');
 bgMusic.volume = 0.015; // 20% volume
 bgMusic.loop = true;
 
