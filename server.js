@@ -8,9 +8,7 @@ const PORT = 3000;
 app.use(express.static('public'));
 
 let players = {};
-
-// 🎃 Trick-or-Treat Minigame
-// const candyScores = {};
+let lanternScores = {}; // Track lantern clicks per player
 
 io.on('connection', (socket) => {
   console.log('New player connected:', socket.id);
@@ -26,11 +24,13 @@ io.on('connection', (socket) => {
       chat: ''
     };
 
-    // // 🎃 Initialize candy score if not present
-    // if (!candyScores[username]) candyScores[username] = 0;
+    // Initialize lantern score for new player
+    if (!lanternScores[username]) {
+      lanternScores[username] = 0;
+    }
 
-    // io.emit('players', players);
-    // io.emit('leaderboard', candyScores); // send leaderboard to everyone
+    io.emit('players', players);
+    io.emit('lanternLeaderboard', lanternScores); // send leaderboard to everyone
   });
 
   socket.on('move', (data) => {
@@ -61,18 +61,18 @@ io.on('connection', (socket) => {
     }
   });
 
-  // 🎃 Trick-or-Treat Minigame result handler
-  // socket.on('trickResult', ({ username, candy }) => {
-  //   if (!candyScores[username]) candyScores[username] = 0;
-
-  //   // Prevent negative scores
-  //   candyScores[username] = Math.max(0, candyScores[username] + candy);
-
-  //   console.log(`🍬 ${username} ${candy > 0 ? `got ${candy} candy!` : 'was tricked!'} Total: ${candyScores[username]}`);
-
-  //   // Broadcast updated leaderboard to all clients
-  //   io.emit('leaderboard', candyScores);
-  // });
+  // Handle lantern click
+  socket.on('lanternClick', (username) => {
+    if (!lanternScores[username]) {
+      lanternScores[username] = 0;
+    }
+    
+    lanternScores[username]++;
+    // console.log(`� ${username} clicked a lantern! Total: ${lanternScores[username]}`);
+    
+    // Broadcast updated leaderboard to all clients
+    io.emit('lanternLeaderboard', lanternScores);
+  });
 
   socket.on('disconnect', () => {
     console.log(`Player disconnected: ${socket.id}`);
