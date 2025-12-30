@@ -14,9 +14,11 @@ const barriers = [
     { x: 450, y: 620, width: 120, height: 150 }, // Snowman
     { x: 1170, y: 690, width: 110, height: 130 }, // Present right side
     // Christmas Tree
-    { x: 1655, y: 530, width: 160, height: 180 }, // Bottompart
-    { x: 1695, y: 360, width: 80, height: 140 }, // Top part
+    { x: 1685, y: 530, width: 160, height: 180 }, // Bottompart
+    { x: 1725, y: 360, width: 80, height: 140 }, // Top part
 
+    // Billboard/Countdown sign
+    { x: 1260, y: 160, width: 450, height: 230, isCountdown: true }, // Billboard area with countdown
 
     // Border around the canvas to prevent people from getting off screen
     { x: -100, y: -100, width: 1920 + 200, height: 100 }, // Top
@@ -68,7 +70,7 @@ const emoteImg2 = new Image();
 emoteImg2.src = 'assets/emote3.png';
 
 // 🎵 Background Music
-const bgMusic = new Audio('/assets/christmas.mp3');
+const bgMusic = new Audio('/assets/newtide.mp3');
 bgMusic.volume = 0.015; // 20% volume
 bgMusic.loop = true;
 
@@ -271,14 +273,100 @@ function update() {
     socket.emit('move', localPlayer);
 }
 
+function getTimeRemaining() {
+    const now = new Date();
+    const newYear = new Date(2026, 0, 1, 0, 0, 0); // January is 0 in JavaScript
+    // Dec 30st 17:00 local
+    // const newYear = new Date(2025, 11, 30, 16, 56, 0); // December is 11 in JavaScript
+    const diff = newYear - now;
+    
+    // If countdown is over
+    if (diff <= 0) {
+        return { isOver: true };
+    }
+    
+    // Calculate time remaining
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+    
+    return {
+        isOver: false,
+        days,
+        hours,
+        minutes,
+        seconds,
+        total: diff
+    };
+}
+
+function drawCountdown(x, y, width, height) {
+    const time = getTimeRemaining();
+    
+    // No background or border - will be transparent
+    ctx.textAlign = 'center';
+    
+    if (time.isOver) {
+        // Draw celebration message
+        ctx.fillStyle = 'rgba(255, 215, 0, 0.9)'; // Gold color for celebration
+        ctx.shadowColor = 'rgba(0, 0, 0, 0.8)';
+        ctx.shadowOffsetX = 3;
+        ctx.shadowOffsetY = 3;
+        ctx.shadowBlur = 5;
+        
+        // Main message
+        ctx.font = 'bold 36px Arial';
+        ctx.fillText('Happy New Year!', x + width/2, y + 80);
+        
+        // Sub message
+        ctx.font = 'bold 28px Arial';
+        ctx.fillText('Have a wonderful 2026, otters!', x + width/2, y + 130);
+        
+        // Add some celebratory emojis
+        ctx.font = '40px Arial';
+        ctx.fillText('🎉 🦦 🎊', x + width/2, y + 190);
+        
+    } else {
+        // Draw countdown as normal
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+        ctx.font = 'bold 28px Arial';
+        ctx.shadowColor = 'rgba(0, 0, 0, 0.7)';
+        ctx.shadowOffsetX = 2;
+        ctx.shadowOffsetY = 2;
+        ctx.shadowBlur = 3;
+        
+        ctx.fillText('New Tide Countdown', x + width/2, y + 50);
+        
+        // Draw time remaining
+        ctx.font = '24px Arial';
+        ctx.fillText('Time until 2026:', x + width/2, y + 100);
+        
+        // Draw countdown numbers with larger, bolder font
+        const timeStr = `${time.days}d ${time.hours}h ${time.minutes}m ${time.seconds}s`;
+        ctx.font = 'bold 40px Arial';
+        ctx.fillText(timeStr, x + width/2, y + 160);
+    }
+    
+    // Reset shadow
+    ctx.shadowColor = 'transparent';
+}
+
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Show barriers by uncommenting
-
-    // ctx.strokeStyle = 'red';
-    // ctx.lineWidth = 2;
-    // for (const barrier of barriers) { ctx.strokeRect(barrier.x, barrier.y, barrier.width, barrier.height); }
+    
+    ctx.strokeStyle = 'red';
+    ctx.lineWidth = 2;
+    for (const barrier of barriers) { 
+        // Show barriers by uncommenting
+        // ctx.strokeRect(barrier.x, barrier.y, barrier.width, barrier.height);
+        
+        // Draw countdown on the billboard
+        if (barrier.isCountdown) {
+            drawCountdown(barrier.x, barrier.y, barrier.width, barrier.height);
+        }
+    }
 
     for (let id in players) {
         const p = players[id];
